@@ -23,7 +23,9 @@ jobs:
         with:
           artifact: /test-results-(.*)/
           name: "Spread tests ($1)"
-          path: results/junit-*.xml
+          # upload-artifact v4+ strips the common ancestor from zip entries,
+          # so files written to 'results/' on disk sit at the zip root.
+          path: junit-*.xml
           reporter: java-junit
           use-actions-summary: false
           max-annotations: 50
