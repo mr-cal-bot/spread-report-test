@@ -20,9 +20,9 @@ jobs:
             <testcase name="passing_test_2" classname="demo" time="0.02"/>
             <testcase name="failing_test" classname="demo" time="0.03">
               <failure message="AssertionError: deliberate failure for annotation test">Traceback (most recent call last):
-  File &quot;/snapcraft/tests/spread/core26/some-test&quot;, line 42, in &lt;module&gt;
-    assert False
-AssertionError: deliberate failure for annotation test</failure>
+          File &quot;/snapcraft/tests/spread/core26/some-test&quot;, line 42, in &lt;module&gt;
+          assert False
+          AssertionError: deliberate failure for annotation test</failure>
             </testcase>
           </testsuite>
           EOF
