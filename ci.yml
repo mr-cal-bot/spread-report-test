@@ -1,0 +1,29 @@
+name: Fake Spread CI
+
+# Mimics what the run-spread action does in canonical/snapcraft: produce a
+# junit XML and upload it as a 'test-results-<name>' artifact.
+on:
+  push:
+  pull_request:
+
+jobs:
+  fake-spread:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate fake test results
+        run: |
+          mkdir -p results
+          cat > results/junit-demo.xml <<'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <testsuite name="demo" tests="2" failures="0" errors="0" skipped="0">
+            <testcase name="passing_test_1" classname="demo" time="0.01"/>
+            <testcase name="passing_test_2" classname="demo" time="0.02"/>
+          </testsuite>
+          EOF
+      - name: Upload test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: test-results-demo
+          path: results/junit-*.xml
+          if-no-files-found: error

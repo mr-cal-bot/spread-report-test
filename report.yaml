@@ -1,0 +1,30 @@
+name: Spread test report
+
+# Same shape as the listener proposed for canonical/snapcraft: runs after the
+# CI workflow completes, downloads its 'test-results-*' artifacts, and creates
+# one check run per artifact with annotations. Runs from the default branch,
+# so it has a token that can create check runs even for fork PRs.
+on:
+  workflow_run:
+    workflows: ["Fake Spread CI"]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish spread test results
+        uses: dorny/test-reporter@d1b5dff021aa968b288b02285a8bf47471c5928a # v3.2.0
+        with:
+          artifact: /test-results-(.*)/
+          name: "Spread tests ($1)"
+          path: results/junit-*.xml
+          reporter: java-junit
+          use-actions-summary: false
+          max-annotations: 50
+          fail-on-empty: "false"
