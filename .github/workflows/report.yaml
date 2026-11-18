@@ -16,17 +16,7 @@ permissions:
 
 jobs:
   report:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Publish spread test results
-        uses: dorny/test-reporter@d1b5dff021aa968b288b02285a8bf47471c5928a # v3.2.0
-        with:
-          artifact: /test-results-(.*)/
-          name: "Spread tests ($1)"
-          # upload-artifact v4+ strips the common ancestor from zip entries,
-          # so files written to 'results/' on disk sit at the zip root.
-          path: junit-*.xml
-          reporter: java-junit
-          use-actions-summary: false
-          max-annotations: 50
-          fail-on-empty: "false"
+    uses: mr-cal-bot/starflow/.github/workflows/test-report.yaml@work/test-python-junit
+    with:
+      reporter: java-junit
+      name: "Spread tests ($1)"
