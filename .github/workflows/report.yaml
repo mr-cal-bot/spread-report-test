@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   report:
-    uses: mr-cal-bot/starflow/.github/workflows/test-report.yaml@work/test-python-junit
+    uses: mr-cal-bot/starflow/.github/workflows/test-report.yaml@work/test-report
     with:
       reporter: java-junit
       name: "Spread tests ($1)"
